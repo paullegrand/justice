@@ -21,7 +21,7 @@
     }
 
     .bg-dark {
-        background-color: #111;
+        background-color: #111 !important;
         color: #ccc;
     }
 
@@ -39,7 +39,7 @@
         bottom: 0;
         width: 100%;
         height: 120px; /* Set the fixed height of the footer here */
-        background-color: #000;
+        background-color: #111;
     }
 </style>
 
@@ -55,6 +55,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mt-5">
+                    <p> This form calls for George Floyd's murderers to be arrested and brought to justice. It will send an email to the heads of the Minneapolis Police Department.
+                        Please fill it out, send, and spread the word. #JusticeForFloyd #BlackLivesMatter </p>
                     <div class="form-group">
                         <label for="name">Name</label>
                         <input type="text"
@@ -78,11 +80,11 @@
                     </div>
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="checkbox" onchange="updateSubmitButton()">
-                        <label class="form-check-label" for="checkbox">I agree to the conditions below*.</label>
+                        <label class="form-check-label" for="checkbox">I have read the conditions below*.</label>
                     </div>
                     <a id="submitButton"
                         class="btn btn-primary mt-2 disabled" href="#"
-                        role="button" aria-disabled="true"">
+                        role="button" aria-disabled="true">
                         Submit
                     </a>
                 </div>
@@ -92,7 +94,7 @@
 
     <footer class="footer">
         <div class="container text-muted small">
-            *This does not send an email on your behalf. This page composes an email for you, and will open your mail with a pre-filled email to modify and/or send. This does not collect or store information.
+            *This does not send an email on your behalf. This page composes an email for you, and will open your mail with a pre-filled email that you may modify before sending. This does not collect or store information.
         </div>
     </footer>
 
@@ -100,8 +102,6 @@
         function updateSubmitButton() {
             const submitButton = document.getElementById("submitButton")
             const isAllowed = document.getElementById("checkbox").checked
-
-            console.log('isAllowed', isAllowed)
 
             let classes = "btn btn-primary mt-2"
 
@@ -127,18 +127,10 @@
         }
 
         function getMailto(name, city, state) {
-            const body = `Hello,
+            const body =
+            `Hello,
 
-My name is ${name}. I am a resident of ${city}, ${state} and I am emailing today to demand accountability for the racist murder of George Floyd.
-
-I demand that charges be pressed against all officers involved in this heinous racist murder, including specifically Derek Chauvin and Tou Thao. They should not be allowed to keep their jobs and should be charged and prosecuted to the fullest extent of the law for manslaughter.
-
-George Floyd should be alive today if it was not for the gross abuse of power and white supremacy exhibited by the Minneapolis Police Department, all officers involved must face consequences for this murder in order to provide his family with justice and prevent further cops from committing brutal acts of violence against our communities.
-
-In addition, I demand that we start providing more support towards community efforts and organizations outside of the police forces in order to prevent police brutality and violence in the future.
-
-Sincerely,
-${name}`
+REWORKING EMAIL.
 
             const mailTo = "mailto:police@minneaopolisnmn.gov"
             const encodedSubject = '?subject=' + encodeURI("Justice for George Floyd")
