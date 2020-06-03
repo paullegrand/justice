@@ -1,0 +1,155 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Email Justice for George Floyd">
+    <meta name="author" content="">
+
+    <title>Justice for George Floyd</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<style>
+    body {
+        background-color: #222;
+        color: #ccc;
+    }
+
+    .bg-dark {
+        background-color: #111;
+        color: #ccc;
+    }
+
+    /* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 120px; /* Margin bottom by footer height */
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 120px; /* Set the fixed height of the footer here */
+  background-color: #000;
+}
+</style>
+
+<body>
+    <main>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Justice for George Floyd</a>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 mt-5">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text"
+                            class="form-control" id="nameInput"
+                            aria-describedby="nameHelp" placeholder="First and Last"
+                            onkeyup="updateMailto()">
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input type="text"
+                            class="form-control" id="cityInput"
+                            aria-describedby="city" placeholder="City"
+                            onkeyup="updateMailto()">
+                    </div>
+                    <div class="form-group">
+                        <label for="state">State</label>
+                        <input type="text"
+                            class="form-control" id="stateInput"
+                            aria-describedby="city" placeholder="State"
+                            onkeyup="updateMailto()">
+                    </div>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox" onchange="updateSubmitButton()">
+                        <label class="form-check-label" for="checkbox">I agree to the conditions below*.</label>
+                    </div>
+                    <a id="submitButton"
+                        class="btn btn-primary mt-2 disabled" href="#"
+                        role="button" aria-disabled="true"">
+                        Submit
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container text-muted small">
+            *This does not send an email on your behalf. This page composes an email for you, and will open your mail with a pre-filled email to modify and/or send. This does not collect or store information.
+        </div>
+    </footer>
+
+    <script>
+        function updateSubmitButton() {
+            const submitButton = document.getElementById("submitButton")
+            const isAllowed = document.getElementById("checkbox").checked
+
+            console.log('isAllowed', isAllowed)
+
+            let classes = "btn btn-primary mt-2"
+
+            if ( ! isAllowed ) classes += " disabled"
+
+            submitButton.removeAttribute("class")
+            submitButton.setAttribute("class", classes)
+            submitButton.setAttribute("aria-disabled", ! isAllowed)
+        }
+
+        function updateMailto() {
+            const submitButton = document.getElementById("submitButton")
+
+            const name = document.getElementById("nameInput").value
+            const city = document.getElementById("cityInput").value
+            const state = document.getElementById("stateInput").value
+            const isAllowed = document.getElementById("checkbox").checked
+
+            console.log('isAllowed', isAllowed)
+
+            // Only do the href if we are allowed to
+            const mailto = getMailto(name, city, state)
+
+            submitButton.setAttribute('href', mailto) 
+        }
+
+        function getMailto(name, city, state) {
+            const body = `Hello,
+
+My name is ${name}. I am a resident of ${city}, ${state} and I am emailing today to demand accountability for the racist murder of George Floyd.
+
+I demand that charges be pressed against all officers involved in this heinous racist murder, including specifically Derek Chauvin and Tou Thao. They should not be allowed to keep their jobs and should be charged and prosecuted to the fullest extent of the law for manslaughter.
+
+George Floyd should be alive today if it was not for the gross abuse of power and white supremacy exhibited by the Minneapolis Police Department, all officers involved must face consequences for this murder in order to provide his family with justice and prevent further cops from committing brutal acts of violence against our communities.
+
+In addition, I demand that we start providing more support towards community efforts and organizations outside of the police forces in order to prevent police brutality and violence in the future.
+
+Sincerely,
+${name}`
+
+            const encodedSubject = encodeURI("Justice for George Floyd")
+            const mailTo = "mailto:police@minneaopolisnmn.gov?subject=" + encodedSubject
+            const encodedBody = '&body=' + encodeURI(body)
+            const bcc = "&bcc=info@mpdfederation.com,citizeninfo@hennepin.us,minneapolis311@minneapolismn.gov"
+
+            return mailTo + encodedBody + bcc
+        }
+    </script>
+</body>
+
+</html>
