@@ -8,6 +8,17 @@
     <meta name="description" content="Email Justice for Breonna Taylor">
     <meta name="author" content="">
 
+    <!-- Favicons -->
+    <link rel="manifest" href="/favicons/manifest.json">
+    <link rel="icon" type="image/png" href="/favicons/16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicons/32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicons/96x96.png" sizes="96x96">
+    <meta name="msapplication-TileImage" content="/favicons/144x144.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/180x180.png">
+	<link rel="icon" type="image/png" href="/favicons/192x192.png" sizes="192x192">
+	<link rel="shortcut icon" href="/favicon.ico">
+	<meta name="msapplication-TileColor" content="##000">
+
     <title>Justice for Breonna Taylor</title>
 
     <!-- Bootstrap Core CSS -->
@@ -16,7 +27,7 @@
 
 <style>
     body {
-        background-color: #222;
+        background-color: #1c1c1c;
         color: #ccc;
     }
 
@@ -55,7 +66,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 mt-5">
-                    <p> This form calls for Breonna Taylor's murderers to be fired and and brought to justice. It will send an email to the congress of the Louisville Police Department.
+                    <p> This form calls for Breonna Taylor's murderers to be fired and and brought to justice. It will send an email to the Louisville Mayor and Kentucky's Attorney General.
                         Please fill it out, send, and spread the word. #BlackLivesMatter </p>
                     <div class="form-group">
                         <label for="name">Name</label>
@@ -128,11 +139,11 @@
 
         function getMailto(name, city, state) {
             const body =
-            `Hello,
+`Hello,
 
-My name is ${name} from ${city}, ${state}. I’m writing to request the immediate suspension and prosecution of Louisville Police Officers John Mattingley, Brent Hagenson, and Myles Cosgrove for their involvement in the murder of Breonna Taylor on March 13th.
+My name is ${name}, and I am from ${city}, ${state}. I’m writing to request the immediate suspension and prosecution of Louisville Police Officers John Mattingley, Brent Hagenson, and Myles Cosgrove for their involvement in the murder of Breonna Taylor on March 13th.
 
-Breonna was only 26 and wanted to be a nurse. She was a kind and capable EMT, a beloved daughter, sister, and friend. Her life was taken from her in her own home by Officers Mattingley, Hagenson, who have not been prosecuted for this crime.
+Breonna was only 26 and wanted to be a nurse. She was a kind and capable EMT, a beloved daughter, sister, and friend. Her life was taken from her in her own home by Officers Mattingley, Hagenson, and Cosgrove, who have not been prosecuted for this crime.
 
 Breonna Taylor deserves to have her killers brought to trial— not be put on “administrative reassignment.”
 
@@ -143,12 +154,17 @@ Thank you for your consideration.
 Sincerely,
 ${name}`
 
-            const mailTo = "mailto:police@minneaopolisnmn.gov"
+            const mailTo = "mailto:Greg.Fischer@louisvilleky.gov"
             const encodedSubject = '?subject=' + encodeURI("Justice for Breonna Taylor")
             const encodedBody = '&body=' + encodeURI(body)
-            const cc = "&cc=info@mpdfederation.com,citizeninfo@hennepin.us,minneapolis311@minneapolismn.gov"
+            const cc = "&cc=attorney.general@ag.ky.gov"
 
-            return mailTo + encodedSubject + encodedBody + cc
+            let message = mailTo + encodedSubject + encodedBody
+
+            if (typeof cc != 'undefined')
+                message += cc
+
+            return message
         }
     </script>
 </body>
